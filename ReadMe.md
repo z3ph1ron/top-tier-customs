@@ -1,6 +1,7 @@
 #  Top Tier Customs LLC - Digital Solution & WebApp
-## Tech Stack
+## Technology Stack
 * MongoDB
 * Express
 * React
 * Node
+## System Design & Architecture
