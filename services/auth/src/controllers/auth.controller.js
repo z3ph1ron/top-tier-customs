@@ -102,7 +102,12 @@ export const login = async (req, res, next) => {
     return res.json({
       accessToken,
       expiresIn: exp - Math.floor(Date.now() / 1000),
-      user: { id: String(u._id), email: u.email, roles: u.roles },
+      user: {
+        id: String(u._id),
+        email: u.email,
+        roles: u.roles,
+        profile: u.profile,
+      },
     });
   } catch (e) {
     next(e);
@@ -184,5 +189,18 @@ export const logout = async (req, res, next) => {
 };
 
 export const me = async (req, res) => {
-  return res.json({ id: req.user.id, roles: req.user.roles });
+  const u = await User.findById(req.user.id, {
+    email: 1,
+    roles: 1,
+    profile: 1,
+  });
+  if (!u) {
+    return res.status(404).json({ error: "not_found" });
+  }
+  return res.json({
+    id: String(u._id),
+    email: u.email,
+    roles: u.roles,
+    profile: u.profile,
+  });
 };

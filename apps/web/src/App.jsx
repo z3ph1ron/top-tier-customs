@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Protected from "./components/Protected";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import Auth from "./pages/Auth";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const App = () => {
   return (
@@ -60,6 +61,14 @@ const App = () => {
             <Main>
               <CustomerDashboard />
             </Main>
+          </Protected>
+        }
+      />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <Protected roles={["ADMIN"]}>
+            <AdminDashboard />
           </Protected>
         }
       />

@@ -21,6 +21,7 @@ import {
   Phone,
   Home,
 } from "lucide-react";
+import { useAuth } from "../contexts/Auth";
 
 // Mock customer data
 const mockCustomer = {
@@ -247,6 +248,8 @@ export default function CustomerDashboard() {
 
   const recentOrders = orders.slice(0, 3);
 
+  const { user } = useAuth();
+
   return (
     <div className="bg-black text-white min-h-screen">
       {/* Header */}
@@ -306,9 +309,9 @@ export default function CustomerDashboard() {
                   </button>
                 </div>
                 <h2 className="text-xl font-bold mt-4">
-                  {customer.firstName} {customer.lastName}
+                  {user.profile.firstName} {user.profile.lastName}
                 </h2>
-                <p className="text-gray-400 text-sm">{customer.email}</p>
+                <p className="text-gray-400 text-sm">{user.email}</p>
                 <div className="mt-4 text-xs text-gray-500">
                   Member since {new Date(customer.createdAt).getFullYear()}
                 </div>
@@ -371,7 +374,7 @@ export default function CustomerDashboard() {
               <div className="space-y-6">
                 <div>
                   <h1 className="text-3xl font-black mb-2">
-                    Welcome back, {customer.firstName}!
+                    Welcome back, {user.profile.firstName}!
                   </h1>
                   <p className="text-gray-400">
                     Here's what's happening with your account.

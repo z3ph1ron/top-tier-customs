@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ShoppingCart, User, ChevronDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from "../contexts/Auth";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -9,7 +10,7 @@ export default function Navbar() {
 
   const location = useLocation();
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,12 +111,22 @@ export default function Navbar() {
                 </span>
               )}
             </a>
-            {loggedIn ? (
-              <a href="/dashboard" className="hidden md:block">
-                <button className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/50">
-                  Dashboard
-                </button>
-              </a>
+            {user ? (
+              <>
+                <a href="/dashboard" className="hidden md:block">
+                  <button className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/50">
+                    Dashboard
+                  </button>
+                </a>
+                <p className="hidden md:block">
+                  <button
+                    onClick={() => logout()}
+                    className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/50"
+                  >
+                    Logout
+                  </button>
+                </p>
+              </>
             ) : (
               <a href="/auth" className="hidden md:block">
                 <button className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/50">

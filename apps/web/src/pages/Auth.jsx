@@ -12,7 +12,7 @@ import {
   Home,
 } from "lucide-react";
 import { useAuth } from "../contexts/Auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [authMode, setAuthMode] = useState("login"); // 'login', 'register', 'forgot-password', 'reset-password'
@@ -23,6 +23,7 @@ export default function Auth() {
   const [success, setSuccess] = useState("");
 
   const { login, signup } = useAuth();
+  const nav = useNavigate();
 
   // Login state
   const [loginData, setLoginData] = useState({
@@ -76,44 +77,13 @@ export default function Auth() {
     setLoading(true);
 
     try {
-      // Simulate API call - Replace with your actual API endpoint
-      //   const response = await fetch("/api/auth/login", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       email: loginData.email,
-      //       password: loginData.password,
-      //     }),
-      //   });
-      const { data } = await login(loginData.email, loginData.password);
-      console.log("data2:", data);
-
-      setLoading(false);
-      window.location.assign("/dashboard");
-
-      //   const data = await response.json();
-
-      //   if (response.ok) {
-      //     // Store JWT token - Note: localStorage is not supported in Claude artifacts
-      //     // In production, you would do: localStorage.setItem('token', data.token);
-
-      //     setSuccess("Login successful! Redirecting...");
-
-      //     // Redirect to dashboard after 1.5 seconds
-      //     setTimeout(() => {
-      //       // window.location.href = '/dashboard';
-      //       alert(
-      //         "Login successful! In production, this would redirect to dashboard."
-      //       );
-      //     }, 1500);
-      //   } else {
-      //     setError(data.message || "Invalid email or password");
-      //   }
+      await login(loginData.email, loginData.password);
+      nav("/dashboard", { replace: true });
     } catch (err) {
+      const status = err?.response?.status;
+      setError(status === 401 ? "Invalid email or password." : "Login failed.");
+    } finally {
       setLoading(false);
-      setError("Invalid credentials");
     }
   };
 
