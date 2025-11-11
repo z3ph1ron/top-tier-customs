@@ -25,5 +25,7 @@ export function signRefresh({ userID, secret, ttl }) {
     expiresIn: expiresInSec,
   });
 
+  const exp = Math.floor(Date.now() / 1000) + expiresInSec;
+
   return { token, exp, jti };
 }
