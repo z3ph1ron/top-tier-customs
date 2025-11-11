@@ -40,9 +40,11 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (email, password) => {
     const d = await loginReq({ email, password });
+    console.log("d:", d);
 
     const me = await fetchMe();
-    setUser({ id: me.id, roles: me.roles });
+    // setUser({ id: me.id, roles: me.roles });
+    setUser({ id: d.user.id, email: d.user.email, roles: d.user.roles });
 
     return d;
   }, []);

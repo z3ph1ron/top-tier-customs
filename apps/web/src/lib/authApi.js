@@ -13,6 +13,7 @@ export async function signup({ email, password, firstName, lastName }) {
 
 export async function login({ email, password }) {
   const { data } = await api.post("/auth/login", { email, password });
+  console.log("data:", data);
 
   setAccessToken(data.accessToken);
 

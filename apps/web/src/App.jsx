@@ -1,6 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 import Main from "./layouts/Main";
 import Landing from "./pages/Landing";
+import Products from "./pages/Products";
+import Services from "./pages/Services";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Protected from "./components/Protected";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import Auth from "./pages/Auth";
 
 const App = () => {
   return (
@@ -14,6 +21,49 @@ const App = () => {
           </Main>
         }
       />
+      <Route
+        path="/shop"
+        element={
+          <Main>
+            <Products />
+          </Main>
+        }
+      />
+      <Route
+        path="/services"
+        element={
+          <Main>
+            <Services />
+          </Main>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <Main>
+            <About />
+          </Main>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <Main>
+            <Contact />
+          </Main>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <Protected>
+            <Main>
+              <CustomerDashboard />
+            </Main>
+          </Protected>
+        }
+      />
+      <Route path="/auth" element={<Auth />} />
     </Routes>
   );
 };

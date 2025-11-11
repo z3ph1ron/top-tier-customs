@@ -9,7 +9,7 @@ export default function Navbar() {
 
   const location = useLocation();
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -117,7 +117,7 @@ export default function Navbar() {
                 </button>
               </a>
             ) : (
-              <a href="/login" className="hidden md:block">
+              <a href="/auth" className="hidden md:block">
                 <button className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-600/50">
                   Sign In
                 </button>
