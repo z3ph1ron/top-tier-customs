@@ -9,5 +9,6 @@ export const env = {
 
   UPSTREAM: {
     AUTH: process.env.AUTH_SERVICE_URL,
+    CATALOG: process.env.CATALOG_SERVICE_URL,
   },
 };

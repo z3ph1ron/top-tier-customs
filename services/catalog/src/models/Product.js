@@ -32,7 +32,7 @@ const productSchema = new mongoose.Schema(
     },
     media: [
       {
-        Type: String,
+        type: String,
       },
     ],
     price: {
